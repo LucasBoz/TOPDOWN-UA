@@ -5,11 +5,12 @@ public class SlimeController : MonoBehaviour
 {
 
     public float speed = 2f;
-    private Vector2 direction; 
+    private Vector2 direction;
     private Rigidbody2D rb;
     private Animator slimeAnimator;
     public DetectionController detectionController;
-    public int health = 2; 
+    public int health = 2;
+    private Collider2D target;
 
     private SpriteRenderer spriteRenderer;
 
@@ -29,42 +30,59 @@ public class SlimeController : MonoBehaviour
 
     private void FixedUpdate()
     {
-      
-        if (detectionController?.detectObjs.Count > 0)
+        if (target != null)
         {
-            slimeAnimator.SetBool("isRunning", true); 
+            direction = (target.transform.position - transform.position).normalized;
 
-            direction = (detectionController.detectObjs[0].transform.position - transform.position).normalized;
+            rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
 
             spriteRenderer.flipX = direction.x < 0;
-
-            rb.MovePosition(rb.position + direction * speed * Time.deltaTime  );
-
-            spriteRenderer.flipX = direction.x < 0;
-
-        } else
-        {
-            slimeAnimator.SetBool("isRunning", false);
-            IdleWalk();
-
         }
 
-        if (health <= 0)
+    }
+
+
+    public void TargetFound(Collider2D collision)
+    {
+        if (target == null)
         {
-            Die();
+            target = collision;
+            // TODO ANIMATION TARGET FOUND
+            slimeAnimator.SetBool("isRunning", true);
         }
+    }
 
-
+    public void TargetLost(Collider2D collision)
+    {
+        if (target == collision)
+        {
+            // TODO ANIMATION TARGET LOST
+            if (detectionController.detectObjs.Count > 0)
+            {
+                TargetFound(detectionController.detectObjs[0]);
+            }
+            else
+            {
+                target = null;
+                slimeAnimator.SetBool("isRunning", false);
+                IdleWalk();
+            }
+        }
     }
 
     private void IdleWalk()
     {
-        
+
     }
 
     public void TakeDammage(int damage)
     {
         health -= damage;
+
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     public void Die()
@@ -77,5 +95,8 @@ public class SlimeController : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+
+
 
 }

@@ -1,23 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Aim : MonoBehaviour
 {
     /**
      * Rotation
      */
     private Camera mainCamera; // Reference to the main camera
     private Vector3 mousePosition; // Position of the mouse in world coordinates
-    public Vector3 rotation;
-    Quaternion quaternionPosition;
+    private Vector3 rotation;
+    public Quaternion quaternionPosition;
 
-    /*
-     * GUN
-     */
-    public GameObject projectile;
-    public Transform gun;         // Referência ao transform da arma
-    private readonly float firehate = 3f; 
-    private float cooldown = 0; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,25 +22,6 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         Rotation(); // Call the rotation method to update the weapon's rotation
-
-        if (cooldown <= 0 )
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Instantiate(projectile, gun.position, quaternionPosition); // Create a new projectile at the fire point
-                cooldown = firehate; // Set the next fire time
-            }
-        }
-        else
-        {
-            cooldown -= Time.deltaTime; // Decrease the time until the next shot
-        }
-
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
     private void Rotation()
@@ -60,6 +34,7 @@ public class Weapon : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ); // Set the rotation of the weapon
         quaternionPosition = transform.rotation;
     }
+
 
 
 

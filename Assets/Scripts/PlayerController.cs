@@ -1,22 +1,32 @@
+using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody2D;
     private Animator playerAnimator;
-    private SpriteRenderer spriteRenderer;
     public float speed = 5f;
     private float initialSpeed;
     public float runSpeed = 10f;
     private Vector2 playerDirection;
-    private bool isAttack = false;
+
+
+
+    /*
+    * GUNS
+    */
+    public Aim aim; // Reference to the Weapon script
+    private float nextAttackTime = 0;
+    private readonly float firehate = .5f;
+    public GameObject rock;
+    public GameObject fireball;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         initialSpeed = speed;
     }
 
@@ -25,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRun();
         OnAttack();
+        CooldownAttaks();
     }
 
     void FixedUpdate()
@@ -33,22 +44,17 @@ public class PlayerController : MonoBehaviour
 
         //playerAnimator.SetInteger("Movimento", playerDirection.sqrMagnitude > 0.1 ? 1 : 0);
 
-        if(playerDirection.sqrMagnitude > 0.1)
+        if (playerDirection.sqrMagnitude > 0.1)
         {
             MovePlayer();
             playerAnimator.SetFloat("AxisX", playerDirection.x);
             playerAnimator.SetFloat("AxisY", playerDirection.y);
 
             playerAnimator.SetInteger("Movimento", 1);
-
-        } else
+        }
+        else
         {
             playerAnimator.SetInteger("Movimento", 0);
-        }
-
-        if (isAttack)
-        {
-            playerAnimator.SetInteger("Movimento", 2);
         }
 
     }
@@ -59,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
- 
 
     void PlayerRun()
     {
@@ -76,16 +81,73 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetMouseButtonDown(0))
+
+        switch (Input.inputString)
         {
-            isAttack = true;
-            speed = 0f;
+            case "1": Sword(); break;
+            case "2": Rock(); break;
+            case "3": Fireball(); break;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetMouseButtonUp(0))
+    }
+
+    #region ATTAKS
+    void Sword()
+    {
+        if (Time.time >= nextAttackTime)
         {
-            isAttack = false;
-            speed = initialSpeed;
+            playerAnimator.SetTrigger("Attack");
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(aim.transform.position, 1f);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                if (enemy.CompareTag("Enemy"))
+                {
+                    enemy.GetComponent<SlimeController>().TakeDammage(1); // Deal damage to the enemy
+                }
+            }
+
+
+            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
         }
     }
+
+    void Rock()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            playerAnimator.SetTrigger("Attack");
+            Shoot(rock);
+            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
+        }
+    }
+
+    void Fireball()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            playerAnimator.SetTrigger("Attack");
+            Shoot(fireball);
+            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
+        }
+    }
+
+    public void Shoot(GameObject projectile)
+    {
+        Instantiate(projectile, aim.transform.position, aim.quaternionPosition);
+    }
+
+
+    public void OnEndAction()
+    {
+
+    }
+
+
+    void CooldownAttaks()
+    {
+        nextAttackTime -= Time.deltaTime;
+    }
+
+    #endregion
 }
