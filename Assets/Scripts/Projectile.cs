@@ -11,6 +11,10 @@ public class Projectile : MonoBehaviour
     Transform sprite; // Reference to the sprite of the projectile
     private int rotationSpeed; // Speed of rotation in degrees per second
 
+    public string origin = "Player";
+    public string target = "Enemy";
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,14 +39,25 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.isTrigger && !collision.CompareTag("Player"))
+        if (!collision.isTrigger && !collision.CompareTag(origin))
         {
-            if (collision.CompareTag("Enemy"))
+            if (collision.CompareTag(target))
             {
-                collision.gameObject.GetComponent<SlimeController>().TakeDammage(damage); // Deal damage to the enemy's health
+                collision.gameObject.GetComponent<Health>().TakeDamage(damage); // Deal damage to the enemy's health
             }
             DestroyProjectile();
         }
+    }
+
+    public void SetTarget(string t)
+    {
+        target = t;
+    }
+
+    public void SetOriginTarget(string o, string t)
+    {
+        origin = o;
+        target = t;
     }
 
 }

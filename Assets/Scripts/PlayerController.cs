@@ -2,7 +2,7 @@ using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Health
 {
     private Rigidbody2D playerRigidbody2D;
     private Animator playerAnimator;
@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float initialSpeed;
     public float runSpeed = 10f;
     private Vector2 playerDirection;
-
 
 
     /*
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         PlayerRun();
         OnAttack();
-        CooldownAttaks();
     }
 
     void FixedUpdate()
@@ -81,7 +79,6 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-
         switch (Input.inputString)
         {
             case "1": Sword(); break;
@@ -91,7 +88,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    #region ATTAKS
     void Sword()
     {
         if (Time.time >= nextAttackTime)
@@ -103,7 +99,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (enemy.CompareTag("Enemy"))
                 {
-                    enemy.GetComponent<SlimeController>().TakeDammage(1); // Deal damage to the enemy
+                    enemy.GetComponent<SlimeController>().TakeDamage(1); // Deal damage to the enemy
                 }
             }
 
@@ -134,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(GameObject projectile)
     {
-        Instantiate(projectile, aim.transform.position, aim.quaternionPosition);
+        Instantiate(projectile, aim.transform.position, aim.quaternionPosition );
     }
 
 
@@ -144,10 +140,22 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void CooldownAttaks()
+
+    private void Hurt()
     {
-        nextAttackTime -= Time.deltaTime;
+        // TODO DEBUFF 
+        playerAnimator.SetTrigger("Hurt");
     }
 
-    #endregion
+    protected override void Die()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        playerAnimator.SetTrigger("Die");
+        this.enabled = false;
+    }
+
+    protected override void Hurted()
+    {
+        throw new System.NotImplementedException();
+    }
 }

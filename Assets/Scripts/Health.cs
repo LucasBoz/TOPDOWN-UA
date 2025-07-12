@@ -1,16 +1,41 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour
 {
-    public int health = 2;
+    public float health = 2;
+
+
+    protected float currentHealth;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        currentHealth = health;
     }
 
-    // Update is called once per frame
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            Hurted();
+        }
+    }
+
+    public void Heal(float x)
+    {
+        currentHealth += x;
+    }
+
+    protected abstract void Die(); 
+    protected abstract void Hurted();
+
 
 
 }

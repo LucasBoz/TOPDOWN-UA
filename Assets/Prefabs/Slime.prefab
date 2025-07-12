@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4858753472597464829}
   - component: {fileID: 994123032927991489}
   - component: {fileID: 8335272181296475918}
-  - component: {fileID: 3253367311950168661}
   - component: {fileID: 2590230878792177398}
   - component: {fileID: 48524144382726174}
   - component: {fileID: 7853157813086687775}
@@ -143,43 +142,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &3253367311950168661
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2571708876269713350}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.12}
-  m_Size: {x: 0.99, y: 0.92}
-  m_Direction: 0
 --- !u!114 &2590230878792177398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,9 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202560f6f0a87e14d926b11d0c73e268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
   detectionController: {fileID: 5152625566502754477}
   health: 2
+  fireball: {fileID: 2554253530751250675, guid: e82cd7eb4d747054e96c4b35408929e1, type: 3}
 --- !u!114 &48524144382726174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,12 +200,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 1.42
+  m_Offset: {x: 0, y: -0.15}
+  m_Radius: 0.54
 --- !u!1 &6417798223387898237
 GameObject:
   m_ObjectHideFlags: 0
