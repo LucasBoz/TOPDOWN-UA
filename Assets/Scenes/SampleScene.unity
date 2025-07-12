@@ -14888,9 +14888,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7655d96f2de06a4280eb304bfde9112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 40
   speed: 5
   runSpeed: 10
-  health: 3
   aim: {fileID: 1230348095}
   rock: {fileID: 2554253530751250675, guid: aa0065deff94a2f41823bc8bafa8b792, type: 3}
   fireball: {fileID: 2554253530751250675, guid: e82cd7eb4d747054e96c4b35408929e1, type: 3}

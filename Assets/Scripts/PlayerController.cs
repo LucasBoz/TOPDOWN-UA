@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
-public class PlayerController : Health
+public class PlayerController : Powers
 {
     private Rigidbody2D playerRigidbody2D;
     private Animator playerAnimator;
@@ -10,6 +13,7 @@ public class PlayerController : Health
     private float initialSpeed;
     public float runSpeed = 10f;
     private Vector2 playerDirection;
+
 
 
     /*
@@ -24,9 +28,11 @@ public class PlayerController : Health
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentHealth = 100;
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
+        SetOriginTarget("Player", "Enemy");
     }
 
     // Update is called once per frame
@@ -82,10 +88,9 @@ public class PlayerController : Health
         switch (Input.inputString)
         {
             case "1": Sword(); break;
-            case "2": Rock(); break;
-            case "3": Fireball(); break;
+            case "2": Rock(AttackTypes[AttackType.ROCK], aim.transform.position, aim.quaternionPosition); break;
+            case "3": Fireball(AttackTypes[AttackType.FIREBOLL], aim.transform.position, aim.quaternionPosition); break;
         }
-
     }
 
     void Sword()
@@ -99,7 +104,7 @@ public class PlayerController : Health
             {
                 if (enemy.CompareTag("Enemy"))
                 {
-                    enemy.GetComponent<SlimeController>().TakeDamage(1); // Deal damage to the enemy
+                    enemy.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
                 }
             }
 
@@ -108,45 +113,7 @@ public class PlayerController : Health
         }
     }
 
-    void Rock()
-    {
-        if (Time.time >= nextAttackTime)
-        {
-            playerAnimator.SetTrigger("Attack");
-            Shoot(rock);
-            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
-        }
-    }
-
-    void Fireball()
-    {
-        if (Time.time >= nextAttackTime)
-        {
-            playerAnimator.SetTrigger("Attack");
-            Shoot(fireball);
-            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
-        }
-    }
-
-    public void Shoot(GameObject projectile)
-    {
-        Instantiate(projectile, aim.transform.position, aim.quaternionPosition );
-    }
-
-
-    public void OnEndAction()
-    {
-
-    }
-
-
-
-    private void Hurt()
-    {
-        // TODO DEBUFF 
-        playerAnimator.SetTrigger("Hurt");
-    }
-
+   
     protected override void Die()
     {
         GetComponent<Collider2D>().enabled = false;
@@ -156,6 +123,60 @@ public class PlayerController : Health
 
     protected override void Hurted()
     {
-        throw new System.NotImplementedException();
+        playerAnimator.SetTrigger("Hurt");
     }
+
+    public override void DoAnimation(Animation animation)
+    {
+        switch (animation)
+        {
+            case Animation.ATTACK:
+                playerAnimator.SetTrigger("attack");
+                break;
+            case Animation.IDLE:
+                playerAnimator.SetTrigger("idle");
+                break;
+            case Animation.WALK:
+                playerAnimator.SetBool("isRunning", false);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
+        }
+    }
+
+
+    private readonly Dictionary<AttackType, Attack> AttackTypes = new()
+    {
+        {
+            AttackType.HIT,
+            new() {
+                type = AttackType.HIT,
+                cooldown = 3,
+                damage = 1,
+                castTime = 0,
+                recoveryTime = 3
+            }
+        },
+        {
+            AttackType.FIREBOLL,
+            new() {
+                type = AttackType.FIREBOLL,
+                cooldown = 5,
+                damage = 3,
+                castTime = 2,
+                recoveryTime = 2
+            }
+        },
+        {
+            AttackType.ROCK,
+            new() {
+                type = AttackType.ROCK,
+                cooldown = 1,
+                damage = 1,
+                castTime = 2,
+                recoveryTime = 2
+            }
+        }
+
+    };
 }

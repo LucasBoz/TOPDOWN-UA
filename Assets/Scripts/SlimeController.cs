@@ -6,11 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class SlimeController : Health
+public class SlimeController : Powers
 {
     public static readonly float speed = 2f;
     public DetectionController detectionController;
-    //public int health = 2;
 
     private Rigidbody2D rb;
     private Animator slimeAnimator;
@@ -18,7 +17,6 @@ public class SlimeController : Health
     private Collider2D target;
 
     private float currentSpeed;
-    private float stopUntil = 0;
     public GameObject fireball;
 
     private readonly float rageIn = 0;
@@ -29,12 +27,12 @@ public class SlimeController : Health
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         currentSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         slimeAnimator = GetComponent<Animator>();
         ResetIdleWalk();
+        SetOriginTarget("Enemy", "Player");
     }
 
     // Update is called once per frame
@@ -55,13 +53,13 @@ public class SlimeController : Health
 
             if (distance < 1)
             {
-                OnAttack(AttackNames.HIT);
+                OnAttack(AttackType.HIT);
             }
 
-            if (timeUntilFireball < Time.time)
-            {
-                OnAttack(AttackNames.FIREBOLL);
-            }
+            OnAttack(AttackType.FIREBOLL);
+            OnAttack(AttackType.ROCK);
+
+
         }
         else
         {
@@ -70,46 +68,21 @@ public class SlimeController : Health
 
     }
 
-    void OnAttack(AttackNames attackType)
+    void OnAttack(AttackType attackType)
     {
+        var attack = AttackTypes[attackType];
+
+        var q = GetQuaternion(transform.position, target.transform.position );
+
         switch (attackType)
         {
-            case AttackNames.HIT: Hit(); break;
-            case AttackNames.FIREBOLL: Fireball(); break;
+            case AttackType.HIT: Hit(attack, target); break;
+            case AttackType.FIREBOLL: Fireball(attack, transform.position, q); break;
+            case AttackType.ROCK: Rock(attack, transform.position, q); break;
         }
     }
 
   
-    void Hit()
-    {
-        var attack = AttackTypes[AttackNames.HIT];
-
-        if (Time.time >= attack.NextAttackTime)
-        {
-            slimeAnimator.SetTrigger("attack");
-            target.GetComponent<PlayerController>().TakeDamage(attack.damage);
-            StopFor(attack.recoveryTime);
-
-            attack.SetNextAttackTime();
-        }
-    }
-
-    void Fireball()
-    {
-        var attack = AttackTypes[AttackNames.HIT];
-
-        if (Time.time >= attack.NextAttackTime)
-        {
-            slimeAnimator.SetTrigger("attack");
-
-            Quaternion q = GetQuaternion(transform.position, target.transform.position);
-
-            var x = Instantiate(fireball, transform.position, q);
-            x.GetComponent<Projectile>().SetOriginTarget("Enemy", "Player");
-            attack.SetNextAttackTime();
-        }
-    }
-
 
     private void RunTo(Vector2 direction)
     {
@@ -188,12 +161,6 @@ public class SlimeController : Health
 
 
 
-    public void StopFor(float time)
-    {
-        slimeAnimator.SetBool("isRunning", false);
-        stopUntil = time + Time.time;
-    }
-
     protected override void Die()
     {
         currentSpeed = 0;
@@ -203,7 +170,7 @@ public class SlimeController : Health
     protected override void Hurted()
     {
         // TODO Hurted animation
-        // slimeAnimator.SetTrigger("morreDiabo");
+        // slimeAnimator.SetTrigger("hurt");
     }
 
     public void Destroy()
@@ -214,74 +181,70 @@ public class SlimeController : Health
 
   
 
-    private readonly Dictionary<AttackNames, Attack> AttackTypes = new()
+    private readonly Dictionary<AttackType, Attack> AttackTypes = new()
     {
         {
-            AttackNames.HIT,
+            AttackType.HIT,
             new() {
-                type = AttackType.MELEE,
-                firehate = 3,
+                type = AttackType.HIT,
+                cooldown = 3,
                 damage = 1,
                 castTime = 0,
                 recoveryTime = 3
             }
         },
         {
-            AttackNames.FIREBOLL,
+            AttackType.FIREBOLL,
             new() {
-                type = AttackType.PROJECTILE,
-                firehate = 5,
+                type = AttackType.FIREBOLL,
+                cooldown = 5,
                 damage = 3,
                 castTime = 2,
-                recoveryTime = 1
+                recoveryTime = 2
+            }
+        },
+        {
+            AttackType.ROCK,
+            new() {
+                type = AttackType.ROCK,
+                cooldown = 1,
+                damage = 1,
+                castTime = 2,
+                recoveryTime = 2
             }
         }
 
     };
 
-    private Quaternion GetQuaternion(Vector2 from, Vector2 to)
+
+    public static Quaternion GetQuaternion(Vector2 from, Vector2 to)
     {
-        var rotation = from - to; // Calculate the rotation vector
+        var rotation = to - from; // Calculate the rotation vector
         float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; // Calculate the angle in degrees
         return Quaternion.Euler(0f, 0f, rotZ); // Set the rotation of the weapon
     }
 
-}
 
-
-
-public enum AttackNames
-{
-    HIT = 0,
-    FIREBOLL = 1,
-}
-
-public class Attack
-{
-    public Attack()
+    public override void DoAnimation(Animation animation)
     {
-        NextAttackTime = 0;
+        switch (animation)
+        {
+            case Animation.ATTACK:
+                slimeAnimator.SetTrigger("attack");
+                break;
+            case Animation.IDLE:
+                slimeAnimator.SetTrigger("idle");
+                break;
+            case Animation.WALK:
+                slimeAnimator.SetBool("isRunning", false);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
+        }
     }
-
-    public AttackType type;
-    public float firehate;
-    public int damage;
-    public float castTime;
-    public float recoveryTime;
-
-    public float NextAttackTime { get; private set; }
-    public void SetNextAttackTime()
-    {
-        NextAttackTime = Time.time + 1 / firehate;
-    }
-
 }
 
-public enum AttackType
-{
-    MELEE = 0,
-    PROJECTILE = 1,
-}
+
 
 
 
