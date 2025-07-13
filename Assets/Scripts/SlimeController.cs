@@ -8,7 +8,6 @@ using UnityEngine.Rendering;
 
 public class SlimeController : Powers
 {
-    public static readonly float speed = 2f;
     public DetectionController detectionController;
 
     private Rigidbody2D rb;
@@ -19,8 +18,8 @@ public class SlimeController : Powers
     private float currentSpeed;
     public GameObject fireball;
 
-    private readonly float rageIn = 0;
     private float timeUntilFireball = 0;
+    private readonly float rageIn = 0;
 
 
 
@@ -186,7 +185,6 @@ public class SlimeController : Powers
         {
             AttackType.HIT,
             new() {
-                type = AttackType.HIT,
                 cooldown = 3,
                 damage = 1,
                 castTime = 0,
@@ -196,7 +194,6 @@ public class SlimeController : Powers
         {
             AttackType.FIREBOLL,
             new() {
-                type = AttackType.FIREBOLL,
                 cooldown = 5,
                 damage = 3,
                 castTime = 2,
@@ -206,7 +203,6 @@ public class SlimeController : Powers
         {
             AttackType.ROCK,
             new() {
-                type = AttackType.ROCK,
                 cooldown = 1,
                 damage = 1,
                 castTime = 2,

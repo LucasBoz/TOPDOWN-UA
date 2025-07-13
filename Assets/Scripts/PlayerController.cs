@@ -150,7 +150,6 @@ public class PlayerController : Powers
         {
             AttackType.HIT,
             new() {
-                type = AttackType.HIT,
                 cooldown = 3,
                 damage = 1,
                 castTime = 0,
@@ -160,7 +159,6 @@ public class PlayerController : Powers
         {
             AttackType.FIREBOLL,
             new() {
-                type = AttackType.FIREBOLL,
                 cooldown = 5,
                 damage = 3,
                 castTime = 2,
@@ -170,7 +168,6 @@ public class PlayerController : Powers
         {
             AttackType.ROCK,
             new() {
-                type = AttackType.ROCK,
                 cooldown = 1,
                 damage = 1,
                 castTime = 2,

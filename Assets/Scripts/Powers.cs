@@ -1,4 +1,6 @@
+using Mono.Cecil;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public abstract class Powers : Health
 {
@@ -9,7 +11,7 @@ public abstract class Powers : Health
 
     private string TargetName;
 
-
+    public static readonly float speed = 2f;
 
     public void Rock(Attack attack, Vector3 origin, Quaternion q)
     {
@@ -30,6 +32,20 @@ public abstract class Powers : Health
             GameObject resourceGameObject = Instantiate(Resources.Load(resource, typeof(GameObject)), origin, q ) as GameObject;
 
             resourceGameObject.GetComponent<Projectile>().SetOriginTarget(OriginName, TargetName);
+
+            attack.SetNextAttackTime();
+        }
+    }
+
+    public void Summon(Attack attack, string resource, Vector3 origin )
+    {
+        if (Time.time >= attack.NextAttackTime)
+        {
+            DoAnimation(Animation.ATTACK);
+
+            GameObject resourceGameObject = Instantiate(Resources.Load(resource, typeof(GameObject)), origin, Quaternion.identity) as GameObject;
+
+            resourceGameObject.GetComponent<Powers>().SetOriginTarget(OriginName, TargetName);
 
             attack.SetNextAttackTime();
         }
@@ -86,7 +102,8 @@ public enum AttackType
 {
     HIT = 0,
     FIREBOLL = 1,
-    ROCK = 2
+    ROCK = 2,
+    SUMMON = 3,
 }
 
 
@@ -98,7 +115,6 @@ public class Attack
         NextAttackTime = 0;
     }
 
-    public AttackType type;
     public float cooldown;
     public int damage;
     public float castTime;
