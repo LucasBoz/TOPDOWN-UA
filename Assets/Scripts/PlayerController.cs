@@ -98,13 +98,18 @@ public class PlayerController : Powers
         if (Time.time >= nextAttackTime)
         {
             playerAnimator.SetTrigger("Attack");
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(aim.transform.position, 1f);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(aim.transform.position, 1f);
 
-            foreach (Collider2D enemy in hitEnemies)
+            foreach (Collider2D hit in hits)
             {
-                if (enemy.CompareTag("Enemy"))
+                if (hit.CompareTag("Enemy"))
                 {
-                    enemy.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
+                    hit.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
+                }
+
+                if (hit.CompareTag("Resource"))
+                {
+                    hit.GetComponent<Resource>()?.ConsumeResource();
                 }
             }
 
