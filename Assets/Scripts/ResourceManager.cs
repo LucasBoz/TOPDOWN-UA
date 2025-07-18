@@ -14,14 +14,10 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager instance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         if (instance == null)
             instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
