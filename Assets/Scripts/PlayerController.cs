@@ -13,6 +13,7 @@ public class PlayerController : Powers
     private float initialSpeed;
     public float runSpeed = 10f;
     private Vector2 playerDirection;
+    public float attackSpeed = 1f;
 
 
 
@@ -109,12 +110,16 @@ public class PlayerController : Powers
 
                 if (hit.CompareTag("Resource"))
                 {
-                    hit.GetComponent<Resource>()?.ConsumeResource();
+                    if (GetComponentInChildren<PolygonCollider2D>().IsTouching(hit))
+                    {
+                        var resource = hit.GetComponent<Resource>();
+                        resource?.ConsumeResource();
+                    }
                 }
             }
 
 
-            nextAttackTime = Time.time + 1f / firehate; // Set the next fire time
+            nextAttackTime = Time.time + attackSpeed / firehate; // Set the next fire time
         }
     }
 
