@@ -10,10 +10,10 @@ public class Tree : Resource
     void Start()
     {
         // Assign a random amount of resource to the tree
-        resourceMaxAmount = UnityEngine.Random.Range(50f, 140f);
+        resourceMaxAmount = UnityEngine.Random.Range(50, 140);
 
         // Assign a random amount of resource to consume when chopping the tree
-        resourceConsume = UnityEngine.Random.Range(5f, 20f);
+        resourceConsume = UnityEngine.Random.Range(5, 20);
     }
 
     // Update is called once per frame
@@ -29,9 +29,11 @@ public class Tree : Resource
         GetComponent<BololoAnimation>().ShakeItBololo();
         
         // Assign a random consume amount to the next chop
-        resourceConsume = UnityEngine.Random.Range(5f, 15f);
+        resourceConsume = UnityEngine.Random.Range(5, 15);
         
         ResourceManager.instance.wood += consumedAmount; // Add the consumed amount to the wood resource
+        
+        playerReference.ShowFloatingText("+" + consumedAmount + " wood", 0.5f); // Show floating text with the amount of wood collected
         
         Debug.Log("TOTAL WOOD: " + ResourceManager.instance.wood);
     }
@@ -39,7 +41,7 @@ public class Tree : Resource
     protected override void OnFullyConsumed()
     {
         GameObject choppedTree = Instantiate(Resources.Load("ChoppedTree", typeof(GameObject))) as GameObject;
-        choppedTree.transform.position = transform.position + Vector3.down * 0.982f + Vector3.right * 0.1f; // Position the chopped tree slightly below the original tree 
+        choppedTree.transform.position = transform.position + Vector3.down * 0.982f + Vector3.right * 0.08f; // Position the chopped tree slightly below the original tree 
 
         Destroy(gameObject);
     }

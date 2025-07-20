@@ -7,8 +7,11 @@ using UnityEngine;
 public abstract class Resource : MonoBehaviour
 {
 
-    public float resourceMaxAmount = 100f;
-    public float resourceConsume = 10f;
+    // Receives a reference to the PlayerController, so we can access player-related methods or properties if needed
+    public PlayerController playerReference;
+    
+    public int resourceMaxAmount = 100;
+    public int resourceConsume = 10;
     private bool isConsumable = true;
 
     // Consume the resource by resourceConsume amount
@@ -23,7 +26,7 @@ public abstract class Resource : MonoBehaviour
         if (resourceConsume > resourceMaxAmount)
         {
             OnConsume(resourceMaxAmount);
-            resourceMaxAmount = 0f;
+            resourceMaxAmount = 0;
         }
         else
         {
@@ -31,7 +34,7 @@ public abstract class Resource : MonoBehaviour
             OnConsume(resourceConsume);
         }
 
-        if (resourceMaxAmount == 0f)
+        if (resourceMaxAmount == 0)
         {
             isConsumable = false;
             OnFullyConsumed();

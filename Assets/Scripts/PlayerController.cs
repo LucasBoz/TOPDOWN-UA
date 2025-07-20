@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -43,6 +44,24 @@ public class PlayerController : Powers
         OnAttack();
     }
 
+    public void ShowFloatingText(string text, float duration = 0.5f)
+    {
+        // instantiate a floating text prefab
+        // the FloatingText script will take care of animating and destroying the text after the duration
+        
+        GameObject floatingTextPrefab = Resources.Load("FloatingText") as GameObject;
+        if (floatingTextPrefab)
+        {
+            GameObject floatingObject = Instantiate(floatingTextPrefab, transform);
+            
+            FloatingText floatingText = floatingObject.GetComponent<FloatingText>();
+            
+            floatingText.text = text;
+            floatingText.duration = duration;
+            floatingText.offset = 1.2f;
+        }
+    }
+    
     void FixedUpdate()
     {
         playerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -113,7 +132,8 @@ public class PlayerController : Powers
                     if (GetComponentInChildren<PolygonCollider2D>().IsTouching(hit))
                     {
                         var resource = hit.GetComponent<Resource>();
-                        resource?.ConsumeResource();
+                        resource.playerReference = this;
+                        resource.ConsumeResource();
                     }
                 }
             }
