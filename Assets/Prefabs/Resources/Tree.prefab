@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 4290268355129201898}
   - component: {fileID: 4500450846635661844}
   - component: {fileID: 4226236048547146692}
+  - component: {fileID: 6659149303031851566}
   m_Layer: 0
   m_Name: HealthyTree
   m_TagString: Resource
@@ -243,3 +244,18 @@ MonoBehaviour:
   resourceConsume: 10
   chopSoundClip: {fileID: 8300000, guid: 1e8ea58c15cd145b6b2602b1595a660f, type: 3}
   treeFallSoundClip: {fileID: 0}
+--- !u!114 &6659149303031851566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723723355135900964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362675e27c8cf4b0ab0042e3f7db762d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.07
+  magnitude: 0.06
+  delay: 0.01
