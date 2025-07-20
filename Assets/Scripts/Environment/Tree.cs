@@ -26,6 +26,8 @@ public class Tree : Resource
         // Play the chop sound effect at the tree's position
         SoundFXManager.instance.PlaySoundFXClip(chopSoundClip, transform, 0.2f); 
         
+        GetComponent<BololoAnimation>().ShakeItBololo();
+        
         // Assign a random consume amount to the next chop
         resourceConsume = UnityEngine.Random.Range(5f, 15f);
         
