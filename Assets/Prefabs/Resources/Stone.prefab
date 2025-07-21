@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3739935493451113036}
   - component: {fileID: 4478805034934185111}
-  - component: {fileID: 4784266846272201713}
   - component: {fileID: 8094229215684048947}
+  - component: {fileID: 2302280685561569732}
   m_Layer: 0
-  m_Name: WoodBoard
+  m_Name: Stone
   m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: 2534315897114766919, guid: 2a7181fd396e24ee4b4e56bbf7684655, type: 3}
+  m_Sprite: {fileID: -7412888260642424328, guid: 2a7181fd396e24ee4b4e56bbf7684655, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,21 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4784266846272201713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45760324650900757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c86eb32bf8431cb6d4e21d9f92948f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
-  resourceMaxAmount: 3
-  resourceConsume: 3
 --- !u!60 &8094229215684048947
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -142,7 +127,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.29, y: 0.23}
+    oldSize: {x: 0.25, y: 0.17}
     newSize: {x: 0.29, y: 0.23}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -150,11 +135,27 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.0074894344, y: 0.10429482}
-      - {x: -0.13393797, y: -0.036418878}
-      - {x: -0.13500853, y: -0.10536537}
-      - {x: -0.0071240505, y: -0.10536538}
-      - {x: 0.13251056, y: 0.03814343}
-      - {x: 0.13465166, y: 0.09286761}
-      - {x: 0.1275065, y: 0.10500833}
+    - - {x: -0.051032163, y: 0.075033925}
+      - {x: -0.09547899, y: 0.038475752}
+      - {x: -0.11823706, y: -0.017506497}
+      - {x: -0.08790581, y: -0.07039504}
+      - {x: 0.09029326, y: -0.06183079}
+      - {x: 0.11573909, y: -0.0014657862}
+      - {x: 0.09183097, y: 0.022926942}
+      - {x: 0.055781752, y: 0.056121342}
   m_UseDelaunayMesh: 0
+--- !u!114 &2302280685561569732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45760324650900757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d1f8bb555a440ab334f6e34b526824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 0}
+  resourceMaxAmount: 3
+  resourceConsume: 3

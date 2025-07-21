@@ -127,7 +127,7 @@ public class PlayerController : Powers
                     hit.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
                 }
 
-                if (hit.CompareTag("Resource"))
+                if (hit.CompareTag("Resource") && !hit.isTrigger)
                 {
                     if (GetComponentInChildren<PolygonCollider2D>().IsTouching(hit))
                     {

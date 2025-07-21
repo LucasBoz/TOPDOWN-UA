@@ -21,7 +21,7 @@ public class Tree : Resource
     {
     }
 
-    protected override void OnConsume(float consumedAmount)
+    protected override void OnConsume(int consumedAmount)
     {
         // Play the chop sound effect at the tree's position
         SoundFXManager.instance.PlaySoundFXClip(chopSoundClip, transform, 0.2f); 
@@ -34,6 +34,8 @@ public class Tree : Resource
         ResourceManager.instance.wood += consumedAmount; // Add the consumed amount to the wood resource
         
         playerReference.ShowFloatingText("+" + consumedAmount + " wood", 0.5f); // Show floating text with the amount of wood collected
+
+        UIManager.instance.UpdateResourcesCount();
         
         Debug.Log("TOTAL WOOD: " + ResourceManager.instance.wood);
     }

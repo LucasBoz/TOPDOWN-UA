@@ -43,6 +43,6 @@ public abstract class Resource : MonoBehaviour
 
     protected abstract void OnFullyConsumed();
 
-    protected abstract void OnConsume(float consumedAmount);
+    protected abstract void OnConsume(int consumedAmount);
 
 }

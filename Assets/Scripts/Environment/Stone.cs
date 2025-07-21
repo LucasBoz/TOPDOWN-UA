@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-public class Wood : Resource
+public class Stone : Resource
 {
-
+    
     protected override void OnConsume(int consumedAmount)
     {
-        ResourceManager.instance.wood += consumedAmount; 
-        playerReference.ShowFloatingText("+" + consumedAmount + " wood", 0.5f);
+        ResourceManager.instance.stone += consumedAmount; 
+        playerReference.ShowFloatingText("+" + consumedAmount + " stone", 0.5f);
         
         UIManager.instance.UpdateResourcesCount();
     }
