@@ -8,6 +8,7 @@ public class ResourceManager : MonoBehaviour
     public int stone = 0;
     public int iron = 0;
     public int gold = 0;
+    public int copper = 0;
 
     public static ResourceManager instance;
 

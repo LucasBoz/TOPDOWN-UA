@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
         globalLight.color = nightColor;
         player.GetComponentInChildren<Light2D>().enabled = true;
         UIMapState.GetComponent<TextMeshProUGUI>().text = "Night";
+        
+        player.ShowFloatingText("bit dark here, init?");
     }
 
     void MakeDay()

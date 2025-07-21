@@ -62,7 +62,7 @@ public class PlayerController : Powers
             floatingText.offset = 1.2f;
         }
     }
-    
+
     void FixedUpdate()
     {
         playerDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

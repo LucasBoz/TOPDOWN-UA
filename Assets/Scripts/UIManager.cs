@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
         content += "  Rock: " + ResourceManager.instance.stone;
         content += "  Iron: " + ResourceManager.instance.iron;
         content += "  Gold: " + ResourceManager.instance.gold;
+        content += "  Copper: " + ResourceManager.instance.copper;
         
         TextMeshProUGUI text = ResourcesCount.GetComponent<TextMeshProUGUI>();
         text.text = content;
