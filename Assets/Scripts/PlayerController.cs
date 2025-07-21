@@ -30,7 +30,6 @@ public class PlayerController : Powers
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentHealth = 100;
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
