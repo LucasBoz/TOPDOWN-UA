@@ -1,15 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Rock : Resource
+public class CopperFormation : Resource
 {
     public AudioClip pickSound;
-    public float ironLotteryChance = 0.1f; // 10% chance to drop iron
     
     void Start()
     {
-        resourceMaxAmount = UnityEngine.Random.Range(50, 140);
-        resourceConsume = UnityEngine.Random.Range(3, 9);
+        resourceMaxAmount = UnityEngine.Random.Range(10, 90);
+        resourceConsume = UnityEngine.Random.Range(1, 8);
     }
     
     protected override void OnConsume(int consumedAmount)
@@ -19,16 +18,7 @@ public class Rock : Resource
         GetComponent<BololoAnimation>().ShakeItBololo();
         
         ResourceManager.instance.stone += consumedAmount; 
-        playerReference.ShowFloatingText("+" + consumedAmount + " stone", 0.5f);
-
-        // might drop some iron
-        if (UnityEngine.Random.value < ironLotteryChance)
-        {
-            int ironAmount = UnityEngine.Random.Range(1, 3); // Drop 1 to 2 iron
-            ResourceManager.instance.iron += ironAmount;
-            
-            playerReference.ShowFloatingText("+" + ironAmount + " iron", 0.6f);
-        }
+        playerReference.ShowFloatingText("+" + consumedAmount + " copper", 0.5f);
         
         // Assign a random consume amount to the next chop
         resourceConsume = UnityEngine.Random.Range(3, 9);
