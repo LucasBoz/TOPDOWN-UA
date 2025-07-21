@@ -12,12 +12,10 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager instance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         if (instance == null)
             instance = this;
-        
-        UIManager.instance.UpdateResourcesCount();
     }
 
 }

@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
         text.text = content;
     }
     
-    void Awake()
+    void Start()
     {
         if (instance == null)
             instance = this;

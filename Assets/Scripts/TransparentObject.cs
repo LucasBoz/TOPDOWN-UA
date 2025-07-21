@@ -9,17 +9,22 @@ public class TransparentObject : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float transparencyFadeTime = 0.5f;
 
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject objectToFade;
 
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = objectToFade.GetComponent<SpriteRenderer>();
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision);
+        Debug.Log(collision);
+        Debug.Log(collision);
+        Debug.Log(collision);
         if(collision.gameObject.GetComponent<PlayerController>())
         {
             StartCoroutine(Fade(spriteRenderer, transparencyFadeTime, spriteRenderer.color.a, transparencyValue));

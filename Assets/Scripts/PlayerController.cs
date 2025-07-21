@@ -35,6 +35,7 @@ public class PlayerController : Powers
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         initialSpeed = speed;
         SetOriginTarget("Player", "Enemy");
+        UIManager.instance.UpdateResourcesCount();
     }
 
     // Update is called once per frame
@@ -127,7 +128,7 @@ public class PlayerController : Powers
                     hit.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
                 }
 
-                if (hit.CompareTag("Resource") && !hit.isTrigger)
+                if (hit.CompareTag("Resource"))
                 {
                     if (GetComponentInChildren<PolygonCollider2D>().IsTouching(hit))
                     {
