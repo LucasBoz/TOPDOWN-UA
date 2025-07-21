@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        setTimeOfDay(20);
     }
 
     private void Awake()
