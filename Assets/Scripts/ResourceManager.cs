@@ -4,12 +4,10 @@ public class ResourceManager : MonoBehaviour
 {
     // TODO - Using fixed "resource" types for now, but this can be some sort onf inventory system in the future
 
-    public float wood = 0f;
-    // public float rock = 0f;
-    // public float water = 0f;
-    // public float sand = 0f;
-    // public float glass = 0f;
-    // ... add more resources as needed
+    public int wood = 0;
+    public int stone = 0;
+    public int iron = 0;
+    public int gold = 0;
 
     public static ResourceManager instance;
 
@@ -18,6 +16,8 @@ public class ResourceManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        
+        UIManager.instance.UpdateResourcesCount();
     }
 
 }
