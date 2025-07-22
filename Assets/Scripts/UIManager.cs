@@ -1,30 +1,40 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
-    [SerializeField] private GameObject ResourcesCount;
-    
     public static UIManager instance;
 
-    public void UpdateResourcesCount()
+    [SerializeField] private TextMeshProUGUI woodText;
+    [SerializeField] private TextMeshProUGUI stoneText;
+    [SerializeField] private TextMeshProUGUI ironText;
+    [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private Image life;
+
+    public Health health;
+
+    private void FixedUpdate()
     {
-        string content = "Wood: " + ResourceManager.instance.wood;
-        content += "  Rock: " + ResourceManager.instance.stone;
-        content += "  Iron: " + ResourceManager.instance.iron;
-        content += "  Gold: " + ResourceManager.instance.gold;
-        content += "  Copper: " + ResourceManager.instance.copper;
-        
-        TextMeshProUGUI text = ResourcesCount.GetComponent<TextMeshProUGUI>();
-        text.text = content;
+        life.fillAmount = health.currentHealth / health.totalHealth;
     }
-    
+
     void Start()
     {
         if (instance == null)
             instance = this;
+        UpdateResourcesCount();
     }
-    
+
+    public void UpdateResourcesCount()
+    {
+        woodText.text = ResourceManager.instance.wood.ToString();
+        stoneText.text = ResourceManager.instance.stone.ToString();
+        ironText.text = ResourceManager.instance.iron.ToString();
+        goldText.text = ResourceManager.instance.gold.ToString();
+    }
+
+
+
 }

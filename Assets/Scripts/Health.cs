@@ -2,23 +2,23 @@ using UnityEngine;
 
 public abstract class Health : MonoBehaviour
 {
-    public float health = 2;
+    public float totalHealth = 2;
 
 
-    protected float currentHealth;
+    public float currentHealth;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        currentHealth = health;
+        currentHealth = totalHealth;
     }
 
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+        currentHealth -= damage;
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
