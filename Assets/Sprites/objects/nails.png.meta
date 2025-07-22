@@ -145,7 +145,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nails_0
+      name: bamm_nails
       rect:
         serializedVersion: 2
         x: 1
@@ -321,7 +321,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nails_8
+      name: copper_lingot
       rect:
         serializedVersion: 2
         x: 1
@@ -343,7 +343,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nails_9
+      name: iron_lingo
       rect:
         serializedVersion: 2
         x: 33
@@ -365,7 +365,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nails_10
+      name: steel_lingot
       rect:
         serializedVersion: 2
         x: 65
@@ -387,7 +387,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nails_11
+      name: gold_lingot
       rect:
         serializedVersion: 2
         x: 97
@@ -510,9 +510,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      nails_0: -4854364996339111278
-      nails_10: -5177663680984838037
-      nails_11: -1824301362804684045
+      bamm_nails: -4854364996339111278
+      copper_lingot: -5364632984782372307
+      gold_lingot: -1824301362804684045
+      iron_lingo: -5946455591609896287
       nails_12: 8959414571188876254
       nails_13: -8502175984940013074
       nails_14: 3662197665091864989
@@ -522,8 +523,7 @@ TextureImporter:
       nails_5: -2641453579953233873
       nails_6: -7412888260642424328
       nails_7: -6190634632776294781
-      nails_8: -5364632984782372307
-      nails_9: -5946455591609896287
+      steel_lingot: -5177663680984838037
       wood_board: 2534315897114766919
       wood_stump: -6485862663338007107
   mipmapLimitGroupName: 

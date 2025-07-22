@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
-    [SerializeField] private GameObject ResourcesCount;
-
     public static UIManager instance;
 
     [SerializeField] private TextMeshProUGUI woodText;

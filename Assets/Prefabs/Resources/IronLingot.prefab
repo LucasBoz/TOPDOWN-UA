@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3739935493451113036}
   - component: {fileID: 4478805034934185111}
-  - component: {fileID: 4784266846272201713}
   - component: {fileID: 8094229215684048947}
+  - component: {fileID: 1891240855183805906}
   m_Layer: 0
-  m_Name: WoodStumb
+  m_Name: IronLingot
   m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: -6485862663338007107, guid: 2a7181fd396e24ee4b4e56bbf7684655, type: 3}
+  m_Sprite: {fileID: -5946455591609896287, guid: 2a7181fd396e24ee4b4e56bbf7684655, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,21 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4784266846272201713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45760324650900757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c86eb32bf8431cb6d4e21d9f92948f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
-  resourceMaxAmount: 1
-  resourceConsume: 1
 --- !u!60 &8094229215684048947
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -142,7 +127,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.22, y: 0.22}
+    oldSize: {x: 0.3, y: 0.26}
     newSize: {x: 0.29, y: 0.23}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -150,12 +135,26 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.05459235, y: 0.09929909}
-      - {x: -0.09932449, y: -0.05104923}
-      - {x: -0.09932449, y: -0.075390965}
-      - {x: -0.07777916, y: -0.1002}
-      - {x: -0.054583628, y: -0.10036965}
-      - {x: 0.09718336, y: 0.04849175}
-      - {x: 0.094685785, y: 0.08002152}
-      - {x: 0.07933321, y: 0.098942034}
+    - - {x: 0.013364706, y: 0.097515605}
+      - {x: -0.1389093, y: 0.015102647}
+      - {x: -0.13772038, y: -0.047968574}
+      - {x: -0.061809205, y: -0.122539416}
+      - {x: 0.14200144, y: -0.021513239}
+      - {x: 0.13736351, y: 0.04902906}
+      - {x: 0.058359146, y: 0.12082644}
   m_UseDelaunayMesh: 0
+--- !u!114 &1891240855183805906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45760324650900757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc86fde9d2241cb8f758ad971e1bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 0}
+  resourceMaxAmount: 5
+  resourceConsume: 5
