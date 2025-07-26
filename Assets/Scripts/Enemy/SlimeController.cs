@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class SlimeController : Powers
+public class SlimeController : Skill
 {
     public DetectionController detectionController;
 
@@ -16,11 +16,10 @@ public class SlimeController : Powers
     private Collider2D target;
 
     private float currentSpeed;
-    public GameObject fireball;
 
-    private float timeUntilFireball = 0;
     private readonly float rageIn = 0;
 
+    private Ability[] abilityList; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +30,7 @@ public class SlimeController : Powers
         spriteRenderer = GetComponent<SpriteRenderer>();
         slimeAnimator = GetComponent<Animator>();
         ResetIdleWalk();
+        abilityList = GetComponentsInChildren<Ability>();
         SetOriginTarget("Enemy", "Player");
     }
 
@@ -50,14 +50,10 @@ public class SlimeController : Powers
 
             RunTo(direction);
 
-            if (distance < 1)
+            foreach (var ability in abilityList)
             {
-                OnAttack(AttackType.HIT);
+                ability.Use();
             }
-
-            OnAttack(AttackType.FIREBOLL);
-            OnAttack(AttackType.ROCK);
-
 
         }
         else
@@ -67,19 +63,6 @@ public class SlimeController : Powers
 
     }
 
-    void OnAttack(AttackType attackType)
-    {
-        var attack = AttackTypes[attackType];
-
-        var q = GetQuaternion(transform.position, target.transform.position );
-
-        switch (attackType)
-        {
-            case AttackType.HIT: Hit(attack, target); break;
-            case AttackType.FIREBOLL: Fireball(attack, transform.position, q); break;
-            case AttackType.ROCK: Rock(attack, transform.position, q); break;
-        }
-    }
 
   
 
@@ -95,7 +78,6 @@ public class SlimeController : Powers
     {
         if (target == null)
         {
-            timeUntilFireball = Time.time + rageIn;
             currentSpeed = speed;
             target = collision;
             // TODO ANIMATION TARGET FOUND
@@ -159,7 +141,6 @@ public class SlimeController : Powers
     }
 
 
-
     protected override void Die()
     {
         currentSpeed = 0;
@@ -178,49 +159,6 @@ public class SlimeController : Powers
 
     }
 
-  
-
-    private readonly Dictionary<AttackType, Attack> AttackTypes = new()
-    {
-        {
-            AttackType.HIT,
-            new() {
-                cooldown = 3,
-                damage = 1,
-                castTime = 0,
-                recoveryTime = 3
-            }
-        },
-        {
-            AttackType.FIREBOLL,
-            new() {
-                cooldown = 5,
-                damage = 3,
-                castTime = 2,
-                recoveryTime = 2
-            }
-        },
-        {
-            AttackType.ROCK,
-            new() {
-                cooldown = 1,
-                damage = 1,
-                castTime = 2,
-                recoveryTime = 2
-            }
-        }
-
-    };
-
-
-    public static Quaternion GetQuaternion(Vector2 from, Vector2 to)
-    {
-        var rotation = to - from; // Calculate the rotation vector
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg; // Calculate the angle in degrees
-        return Quaternion.Euler(0f, 0f, rotZ); // Set the rotation of the weapon
-    }
-
-
     public override void DoAnimation(Animation animation)
     {
         switch (animation)
@@ -237,6 +175,18 @@ public class SlimeController : Powers
             default:
                 throw new ArgumentOutOfRangeException(nameof(animation), animation, null);
         }
+    }
+
+    public override Skill GetTarget()
+    {
+        Skill target = null;
+        _ = target.TryGetComponent<Skill>(out var skill);        
+        return skill;
+    }
+
+    public override Vector2 getTargetPosition()
+    {
+        return target.transform.position;
     }
 }
 

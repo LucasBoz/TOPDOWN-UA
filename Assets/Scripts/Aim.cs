@@ -7,7 +7,7 @@ public class Aim : MonoBehaviour
      * Rotation
      */
     private Camera mainCamera; // Reference to the main camera
-    private Vector3 mousePosition; // Position of the mouse in world coordinates
+    public Vector3 mousePosition; // Position of the mouse in world coordinates
     private Vector3 rotation;
     public Quaternion quaternionPosition;
 

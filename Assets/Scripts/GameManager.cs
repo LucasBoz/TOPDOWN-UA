@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        setTimeOfDay(20);
+        setTimeOfDay(12);
     }
 
     private void Awake()
@@ -57,6 +57,6 @@ public class GameManager : MonoBehaviour
     {
         globalLight.color = Color.white;
         player.GetComponentInChildren<Light2D>().enabled = false;
-        UIMapState.GetComponent<TextMeshProUGUI>().text = "Day";
+        //UIMapState.GetComponent<TextMeshProUGUI>().text = "Day";
     }
 }

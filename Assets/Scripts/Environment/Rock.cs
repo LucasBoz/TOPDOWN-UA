@@ -5,11 +5,12 @@ public class Rock : Resource
 {
     public AudioClip pickSound;
     public float ironLotteryChance = 0.1f; // 10% chance to drop iron
-    
-    void Start()
+
+    public void Start()
     {
         resourceMaxAmount = UnityEngine.Random.Range(50, 140);
         resourceConsume = UnityEngine.Random.Range(3, 9);
+        base.Start();
     }
     
     protected override void OnConsume(int consumedAmount)

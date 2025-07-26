@@ -14,6 +14,11 @@ public abstract class Resource : MonoBehaviour
     public int resourceConsume = 10;
     private bool isConsumable = true;
 
+    public void Start()
+    {
+        playerReference = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
     // Consume the resource by resourceConsume amount
     public void ConsumeResource()
     {

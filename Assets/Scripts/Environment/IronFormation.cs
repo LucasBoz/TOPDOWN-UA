@@ -9,6 +9,7 @@ public class IronFormation : Resource
     {
         resourceMaxAmount = UnityEngine.Random.Range(50, 140);
         resourceConsume = UnityEngine.Random.Range(3, 9);
+        base.Start();
     }
     
     protected override void OnConsume(int consumedAmount)

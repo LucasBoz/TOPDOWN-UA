@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeKing : Powers
+public class SlimeKing : Skill
 {
 
     public GameObject player;
@@ -65,5 +65,15 @@ public class SlimeKing : Powers
     protected override void Hurted()
     {
         //throw new System.NotImplementedException();
+    }
+
+    public override Skill GetTarget()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Vector2 getTargetPosition()
+    {
+        throw new System.NotImplementedException();
     }
 }

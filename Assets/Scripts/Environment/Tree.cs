@@ -7,13 +7,15 @@ public class Tree : Resource
     public AudioClip treeFallSoundClip;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         // Assign a random amount of resource to the tree
         resourceMaxAmount = UnityEngine.Random.Range(50, 140);
 
         // Assign a random amount of resource to consume when chopping the tree
         resourceConsume = UnityEngine.Random.Range(5, 20);
+
+        base.Start();
     }
 
     // Update is called once per frame

@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class PlayerController : Powers
+public class PlayerController : Skill
 {
     private Rigidbody2D playerRigidbody2D;
     private Animator playerAnimator;
@@ -21,6 +21,8 @@ public class PlayerController : Powers
     /*
     * GUNS
     */
+    public Ability[] abilityList ;
+
     public Aim aim; // Reference to the Weapon script
     private float nextAttackTime = 0;
     private readonly float firehate = .5f;
@@ -30,12 +32,17 @@ public class PlayerController : Powers
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        abilityList = GetComponentsInChildren<Ability>();
+       
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
+
         initialSpeed = speed;
         SetOriginTarget("Player", "Enemy");
-        UIManager.instance.UpdateResourcesCount();
+        UIManager.instance.Init();
     }
+
+ 
 
     // Update is called once per frame
     void Update()
@@ -48,14 +55,14 @@ public class PlayerController : Powers
     {
         // instantiate a floating text prefab
         // the FloatingText script will take care of animating and destroying the text after the duration
-        
+
         GameObject floatingTextPrefab = Resources.Load("FloatingText") as GameObject;
         if (floatingTextPrefab)
         {
             GameObject floatingObject = Instantiate(floatingTextPrefab, transform);
-            
+
             FloatingText floatingText = floatingObject.GetComponent<FloatingText>();
-            
+
             floatingText.text = text;
             floatingText.duration = duration;
             floatingText.offset = 1.2f;
@@ -105,13 +112,33 @@ public class PlayerController : Powers
 
     void OnAttack()
     {
-        switch (Input.inputString)
+
+        var index = GetAbilityIndex();
+
+        if(index > -1 && index < abilityList.Length)
         {
-            case "1": Sword(); break;
-            case "2": Rock(AttackTypes[AttackType.ROCK], aim.transform.position, aim.quaternionPosition); break;
-            case "3": Fireball(AttackTypes[AttackType.FIREBOLL], aim.transform.position, aim.quaternionPosition); break;
+            if (abilityList[index].Use()) playerAnimator.SetTrigger("Attack");
         }
+
     }
+
+
+    int GetAbilityIndex()
+    {
+        return Input.inputString switch
+        {
+            "j" => 0,
+            "k" => 1,
+            "l" => 2,
+            "u" => 3,
+            "i" => 4,
+            "o" => 5,
+            "p" => 6,
+            _ => int.TryParse(Input.inputString, out int index) ? index - 1 : -1
+        };
+
+    }
+
 
     void Sword()
     {
@@ -143,7 +170,7 @@ public class PlayerController : Powers
         }
     }
 
-   
+
     protected override void Die()
     {
         GetComponent<Collider2D>().enabled = false;
@@ -174,36 +201,20 @@ public class PlayerController : Powers
         }
     }
 
-
-    private readonly Dictionary<AttackType, Attack> AttackTypes = new()
+    public override Skill GetTarget()
     {
-        {
-            AttackType.HIT,
-            new() {
-                cooldown = 3,
-                damage = 1,
-                castTime = 0,
-                recoveryTime = 3
-            }
-        },
-        {
-            AttackType.FIREBOLL,
-            new() {
-                cooldown = 5,
-                damage = 3,
-                castTime = 2,
-                recoveryTime = 2
-            }
-        },
-        {
-            AttackType.ROCK,
-            new() {
-                cooldown = 1,
-                damage = 1,
-                castTime = 2,
-                recoveryTime = 2
-            }
-        }
+        throw new NotImplementedException();
+    }
 
-    };
+    public override Vector2 getTargetPosition()
+    {
+        return aim.mousePosition;
+    }
+
+    public override Vector2 GetOffSet()
+    {
+        return new(0, 0.5f); ;
+    }
+
+  
 }

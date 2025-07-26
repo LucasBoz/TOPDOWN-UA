@@ -9,6 +9,7 @@ public class CopperFormation : Resource
     {
         resourceMaxAmount = UnityEngine.Random.Range(10, 90);
         resourceConsume = UnityEngine.Random.Range(1, 8);
+        base.Start();
     }
     
     protected override void OnConsume(int consumedAmount)

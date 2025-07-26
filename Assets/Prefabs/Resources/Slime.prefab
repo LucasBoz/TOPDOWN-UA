@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 4858753472597464829}
   - component: {fileID: 994123032927991489}
   - component: {fileID: 8335272181296475918}
-  - component: {fileID: 2590230878792177398}
-  - component: {fileID: 48524144382726174}
   - component: {fileID: 7853157813086687775}
+  - component: {fileID: 1947359399813939584}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Enemy
@@ -31,11 +30,12 @@ Transform:
   m_GameObject: {fileID: 2571708876269713350}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.57, y: -3.92, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9110388969059848377}
+  - {fileID: 884253740032057332}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4858753472597464829
@@ -142,34 +142,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2590230878792177398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2571708876269713350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 202560f6f0a87e14d926b11d0c73e268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionController: {fileID: 5152625566502754477}
-  health: 2
-  fireball: {fileID: 2554253530751250675, guid: e82cd7eb4d747054e96c4b35408929e1, type: 3}
---- !u!114 &48524144382726174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2571708876269713350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b789401ab42e57c4e8521c3dbbdb6784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 2
 --- !u!58 &7853157813086687775
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -206,6 +178,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.15}
   m_Radius: 0.54
+--- !u!114 &1947359399813939584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571708876269713350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38297c9e8c7fd8f4d8b770a7d778b559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 2
+  currentHealth: 0
+  stopUntil: 0
+  detectionController: {fileID: 7187236889563988925}
 --- !u!1 &6417798223387898237
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9110388969059848377}
   - component: {fileID: 4159432566542883049}
-  - component: {fileID: 5152625566502754477}
+  - component: {fileID: 7187236889563988925}
   m_Layer: 0
   m_Name: AreaDetection
   m_TagString: Untagged
@@ -275,7 +263,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 5
---- !u!114 &5152625566502754477
+--- !u!114 &7187236889563988925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,9 +272,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 6417798223387898237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc0ff726624bbd41a70d3bd9fc46207, type: 3}
+  m_Script: {fileID: 11500000, guid: fc79847da07a23d479297f29c9e3ec27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
-  SlimeController: {fileID: 2590230878792177398}
+  SlimeController: {fileID: 1947359399813939584}
   detectObjs: []
+--- !u!1001 &1953239842919629175
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5209327776056392248}
+    m_Modifications:
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892568286233749553, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+      propertyPath: m_Name
+      value: EvilBloodAbility
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+--- !u!4 &884253740032057332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1684009117107527299, guid: e8165c9cb2514d749a548da70efdb706, type: 3}
+  m_PrefabInstance: {fileID: 1953239842919629175}
+  m_PrefabAsset: {fileID: 0}
