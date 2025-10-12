@@ -12,7 +12,7 @@ namespace Assets.Scripts.Abilities
 
         protected override bool Do()
         {
-            Quaternion quanternion = GetQuaternion(transform.position, skill.getTargetPosition());
+            Quaternion quanternion = GetQuaternion(transform.position, skill.GetTargetPosition());
             return Do(quanternion);
         }
 

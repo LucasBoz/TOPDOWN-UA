@@ -81,5 +81,29 @@ public abstract class Ability : MonoBehaviour
 
 
 
+    public void ShowCircleArea(Vector3 position, float radius, float duration)
+    {
+        var positionCount = 15;
+
+        GameObject visual = new GameObject("HitAreaVisual");
+        var line = visual.AddComponent<LineRenderer>();
+        line.positionCount = positionCount;
+        line.loop = true;
+        line.widthMultiplier = 0.05f;
+        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.startColor = Color.red;
+        line.endColor = Color.red;
+        line.useWorldSpace = true; // Use coordenadas globais
+
+        for (int i = 0; i < positionCount; i++)
+        {
+            float angle = i * Mathf.PI * 2f / positionCount;
+            Vector3 point = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * radius + position;
+            line.SetPosition(i, point);
+        }
+
+        Object.Destroy(visual, duration);
+    }
+
 
 }

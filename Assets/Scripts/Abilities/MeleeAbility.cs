@@ -7,14 +7,28 @@ public class MeleeAbility : Ability
 
     protected override bool Do()
     {
-        //playerAnimator.SetTrigger("Attack") ; TODO
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f);
+        var originOffset = new Vector2(0, 0.5f);
+        var origin = (Vector2)transform.position + originOffset;
+
+        var offset = 1f;
+        var position = skill.GetTargetPosition();
+
+        // Calcula a direção normalizada de origin para position
+        Vector2 direction = (position - origin).normalized;
+
+
+        // Calcula o target aplicando o offset na direção
+        var target = origin + direction * offset;
+
+        ShowCircleArea(target, 1f, 0.5f);
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(target, 1f);
 
         foreach (Collider2D hit in hits)
         {
             if (hit.CompareTag("Enemy"))
             {
-                hit.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
+                hit.GetComponent<Health>().TakeDamage(100); // Deal damage to the enemy
             }
 
             if (hit.CompareTag("Resource"))
@@ -30,5 +44,7 @@ public class MeleeAbility : Ability
 
         return true;
     }
+
+
 
 }

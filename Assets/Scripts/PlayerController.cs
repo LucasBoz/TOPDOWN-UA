@@ -24,10 +24,7 @@ public class PlayerController : Skill
     public Ability[] abilityList ;
 
     public Aim aim; // Reference to the Weapon script
-    private float nextAttackTime = 0;
-    private readonly float firehate = .5f;
-    public GameObject rock;
-    public GameObject fireball;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -140,36 +137,6 @@ public class PlayerController : Skill
     }
 
 
-    void Sword()
-    {
-        if (Time.time >= nextAttackTime)
-        {
-            playerAnimator.SetTrigger("Attack");
-            Collider2D[] hits = Physics2D.OverlapCircleAll(aim.transform.position, 1f);
-
-            foreach (Collider2D hit in hits)
-            {
-                if (hit.CompareTag("Enemy"))
-                {
-                    hit.GetComponent<Health>().TakeDamage(1); // Deal damage to the enemy
-                }
-
-                if (hit.CompareTag("Resource"))
-                {
-                    if (GetComponentInChildren<PolygonCollider2D>().IsTouching(hit))
-                    {
-                        var resource = hit.GetComponent<Resource>();
-                        resource.playerReference = this;
-                        resource.ConsumeResource();
-                    }
-                }
-            }
-
-
-            nextAttackTime = Time.time + attackSpeed / firehate; // Set the next fire time
-        }
-    }
-
 
     protected override void Die()
     {
@@ -206,7 +173,7 @@ public class PlayerController : Skill
         throw new NotImplementedException();
     }
 
-    public override Vector2 getTargetPosition()
+    public override Vector2 GetTargetPosition()
     {
         return aim.mousePosition;
     }

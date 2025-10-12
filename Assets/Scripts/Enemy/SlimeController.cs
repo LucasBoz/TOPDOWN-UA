@@ -184,7 +184,7 @@ public class SlimeController : Skill
         return skill;
     }
 
-    public override Vector2 getTargetPosition()
+    public override Vector2 GetTargetPosition()
     {
         return target.transform.position;
     }

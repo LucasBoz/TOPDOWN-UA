@@ -19,7 +19,7 @@ public abstract class Skill : Health
 
 
 
-    public abstract Vector2 getTargetPosition();
+    public abstract Vector2 GetTargetPosition();
 
 
 

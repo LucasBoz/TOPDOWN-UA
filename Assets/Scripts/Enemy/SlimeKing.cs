@@ -72,7 +72,7 @@ public class SlimeKing : Skill
         throw new System.NotImplementedException();
     }
 
-    public override Vector2 getTargetPosition()
+    public override Vector2 GetTargetPosition()
     {
         throw new System.NotImplementedException();
     }
