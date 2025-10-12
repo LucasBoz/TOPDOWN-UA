@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
@@ -52,11 +53,11 @@ public class UIManager : MonoBehaviour
 
     public void Init()
     {
-        InstantiateAbilityFrames();
+        UpdateAbilityFrames();
         UpdateResourcesCount();
+   
     }
-
-    private void InstantiateAbilityFrames()
+    public void UpdateAbilityFrames()
     {
         if (playerController.abilityList == null) return;
 
@@ -100,6 +101,7 @@ public class UIManager : MonoBehaviour
         }
 
     }
+
 
 
 }

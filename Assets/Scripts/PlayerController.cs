@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
@@ -16,12 +17,12 @@ public class PlayerController : Skill
     private Vector2 playerDirection;
     public float attackSpeed = 1f;
 
-
+    private GameObject abilities; 
 
     /*
     * GUNS
     */
-    public Ability[] abilityList ;
+    public List<Ability> abilityList ;
 
     public Aim aim; // Reference to the Weapon script
 
@@ -29,17 +30,27 @@ public class PlayerController : Skill
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        abilityList = GetComponentsInChildren<Ability>();
+        abilityList = GetComponentsInChildren<Ability>().ToList();
        
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
-
+        abilities = GameObject.Find("Abilities");
         initialSpeed = speed;
         SetOriginTarget("Player", "Enemy");
         UIManager.instance.Init();
     }
 
  
+
+    public void AddAbility(GameObject ability)
+    {
+        var x = Instantiate(ability);
+        x.transform.position = Vector3.zero;
+        x.transform.SetParent(abilities.transform, false);
+        abilityList = GetComponentsInChildren<Ability>().ToList();
+        UIManager.instance.UpdateAbilityFrames();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -112,7 +123,7 @@ public class PlayerController : Skill
 
         var index = GetAbilityIndex();
 
-        if(index > -1 && index < abilityList.Length)
+        if(index > -1 && index < abilityList.Count)
         {
             if (abilityList[index].Use()) playerAnimator.SetTrigger("Attack");
         }

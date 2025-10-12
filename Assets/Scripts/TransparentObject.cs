@@ -21,10 +21,6 @@ public class TransparentObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
-        Debug.Log(collision);
-        Debug.Log(collision);
-        Debug.Log(collision);
         if(collision.gameObject.GetComponent<PlayerController>())
         {
             StartCoroutine(Fade(spriteRenderer, transparencyFadeTime, spriteRenderer.color.a, transparencyValue));

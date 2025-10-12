@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: 
-  sprite: {fileID: 0}
+  sprite: {fileID: -720813370949761476, guid: e211efdbd69d7e1439efb8073915d1b3, type: 3}
   imageIcon: {fileID: 0}
   cooldownImage: {fileID: 0}
   cooldown: 2
