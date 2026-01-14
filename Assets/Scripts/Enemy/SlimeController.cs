@@ -19,7 +19,7 @@ public class SlimeController : Skill
 
     private readonly float rageIn = 0;
 
-    private Ability[] abilityList; 
+    private Ability[] abilityList;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -64,7 +64,7 @@ public class SlimeController : Skill
     }
 
 
-  
+
 
     private void RunTo(Vector2 direction)
     {
@@ -180,7 +180,7 @@ public class SlimeController : Skill
     public override Skill GetTarget()
     {
         Skill target = null;
-        _ = target.TryGetComponent<Skill>(out var skill);        
+        _ = target.TryGetComponent<Skill>(out var skill);
         return skill;
     }
 

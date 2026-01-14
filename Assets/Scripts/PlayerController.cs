@@ -17,12 +17,12 @@ public class PlayerController : Skill
     private Vector2 playerDirection;
     public float attackSpeed = 1f;
 
-    private GameObject abilities; 
+    private GameObject abilities;
 
     /*
     * GUNS
     */
-    public List<Ability> abilityList ;
+    public List<Ability> abilityList;
 
     public Aim aim; // Reference to the Weapon script
 
@@ -31,7 +31,7 @@ public class PlayerController : Skill
     void Start()
     {
         abilityList = GetComponentsInChildren<Ability>().ToList();
-       
+
         playerAnimator = GetComponent<Animator>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         abilities = GameObject.Find("Abilities");
@@ -40,7 +40,7 @@ public class PlayerController : Skill
         UIManager.instance.Init();
     }
 
- 
+
 
     public void AddAbility(GameObject ability)
     {
@@ -123,7 +123,7 @@ public class PlayerController : Skill
 
         var index = GetAbilityIndex();
 
-        if(index > -1 && index < abilityList.Count)
+        if (index > -1 && index < abilityList.Count)
         {
             if (abilityList[index].Use()) playerAnimator.SetTrigger("Attack");
         }
@@ -194,5 +194,5 @@ public class PlayerController : Skill
         return new(0, 0.5f); ;
     }
 
-  
+
 }

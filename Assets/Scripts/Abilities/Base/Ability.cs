@@ -20,7 +20,7 @@ public abstract class Ability : MonoBehaviour
     public float cooldown = 2;
     private float nextAttackTime = 0;
 
-    public Skill skill; 
+    public Skill skill;
 
     public void Start()
     {

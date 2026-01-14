@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     {
         UpdateAbilityFrames();
         UpdateResourcesCount();
-   
+
     }
     public void UpdateAbilityFrames()
     {
@@ -64,9 +64,14 @@ public class UIManager : MonoBehaviour
         // left of the position of the abilityUI
         Vector2 startPosition = new(-200, -10);
 
+        string[] keys = new string[] { "J", "K", "L", "U", "I", "O", "P" };
+
+
+        int index = 0;
         foreach (var ability in playerController.abilityList)
         {
             if (ability == null) continue;
+
             // Check if the ability has a sprite
             if (ability.sprite == null)
             {
@@ -85,8 +90,14 @@ public class UIManager : MonoBehaviour
             ability.imageIcon = image;
             ability.cooldownImage = imageList.Where(e => e.name == "Cooldown").First();
 
+            // KEY TEXT 
+            var keyText = frame.GetComponentsInChildren<TextMeshProUGUI>().First();
+            keyText.text = keys[index];
+
 
             startPosition.x += 60; // Move to the right for the next frame
+
+            index++;
         }
 
     }
